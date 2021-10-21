@@ -19,6 +19,5 @@ jobs:
           node-version: 14.x
       - name: Update npm
         run: npm i -g npm@7.3.0
-      - run: npm ci
-      - run: npm run setup:dev
-      - run: cd ./packages/amplication-server && npm run test
+      - run: npm ci --production
+      - run: npm run bootstrap -- --scope @amplication/server --scope @amplication/client --include-dependencies
