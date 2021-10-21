@@ -20,5 +20,6 @@ jobs:
       - name: Update npm
         run: npm i -g npm@7.3.0
       - run: npm ci --production
+      - run: npm i ts-node
       - run: npm run setup:dev
       - run: cd ./packages/amplication-server && npm run test
