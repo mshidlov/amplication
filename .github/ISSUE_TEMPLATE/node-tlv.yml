@@ -9,6 +9,8 @@ body:
       value: |
         Share with us your best idea, for anything that can make backend developers' life easier, better, faster - for a chance to win a MacBook Pro
         1. Create a feature request in our project repo on GitHub with your idea. Use the QR code to navigate to the special "node.TLV challenge" 
+        2. Come visit us at our booth to approve your submission and pick up the coolest "open-source" t-shirt.
+        3. Share the idea with your colleagues and friends. 
   - type: textarea
     id: feature-description
     validations:
