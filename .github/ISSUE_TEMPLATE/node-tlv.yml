@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Share with us your best idea, for anything that can make backend developers
+        Thanks for taking the time to fill out our feature request form 🙏
         
 
     id: feature-description
