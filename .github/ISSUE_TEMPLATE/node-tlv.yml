@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out our feature request form 🙏
+        Share with us your best idea, for anything that can make backend developers' life easier, better, faster - for a chance to win a MacBook Pro
   - type: textarea
     id: feature-description
     validations:
