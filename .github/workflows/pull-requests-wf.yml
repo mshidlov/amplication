@@ -76,7 +76,15 @@ jobs:
       - name: Lerna Bootstrap
         run: lerna bootstrap --scope=${{matrix.package.name}} 
       - name: Lerna Check Formatting
-        run: lerna run --scope=${{matrix.package.name}} check-format
+        run: |
+          echo ::set-output name=$(lerna run --scope=${{matrix.package.name}} check-format)
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: 'Commiter ${{EVENT_PAYLOAD.pusher.name}} {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+
       
       
       
