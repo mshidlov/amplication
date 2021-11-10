@@ -82,7 +82,7 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS : ${{ toJson("{\"embeds\":[{\"title\":\"Hello!\",\"description\":\"Hi! :grinning:\"}]}") }}
+          DISCORD_EMBEDS : ${{ toJson({"embeds":[{"title":"Hello!","description":"Hi! :grinning:"}]}) }}
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: 'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
