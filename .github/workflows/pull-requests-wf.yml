@@ -64,7 +64,7 @@ jobs:
         id: path
         run: |
           echo ::set-output name=rel_path::$(echo ${{ toJSON(steps.test.outputs.path) }} | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
-      - run:  echo $(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | sed 's/\/home\/runner\/work\/amplication\/amplication\///')  
+      - run:  echo $(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | sed 's/"\/home\/runner\/work\/amplication\/amplication\/"//')  
       
       
       
