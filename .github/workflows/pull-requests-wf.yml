@@ -56,14 +56,7 @@ jobs:
         package: ${{ fromJson(needs.changed-packages.outputs.packages) }}
     steps:
       - uses: actions/checkout@v2
-      - name: test
-        id: test
+      - name: escape ${{matrix.package.name}} package-lock.json relative path 
+        id: package_lock
         run: |
-          echo ::set-output name=path::${{  format('{0}/package-lock.json', toJSON(matrix.package.location)) }}
-      - name: escape
-        id: path
-        run: |
-          echo ::set-output name=rel_path::$(echo ${{ toJSON(steps.test.outputs.path) }} | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
-      - run:  echo $(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | tr -d '"' | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
-      - run:  echo $(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | sed 's/"\/home\/runner\/work\/amplication\/amplication\/"//g')
-
+          echo ::set-output name=rel_path::$(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | tr -d '"' | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
