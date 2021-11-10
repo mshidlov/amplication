@@ -83,7 +83,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: 'Commiter ${{EVENT_PAYLOAD.pusher.name}} {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+          args: 'Commiter {{EVENT_PAYLOAD.pusher.name}} {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
 
       
       
