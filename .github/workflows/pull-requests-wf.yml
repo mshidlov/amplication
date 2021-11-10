@@ -90,6 +90,21 @@ jobs:
 
 
 
+      - name: Lerna Testing
+        id: lerna-testing
+        run: |
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} check-format)
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_EMBEDS: ${{ toJson({"embeds":[{"title":"Meow!","color":1127128},{"title":"Meow-meow!","color":14177041}]}) }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: 'Testing FAILED - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
+
+
+
+
 
 
       # {{EVENT_PAYLOAD.pusher.name}}   {{ EVENT_PAYLOAD.head_commit.commiter.name }}
