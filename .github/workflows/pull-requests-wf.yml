@@ -76,14 +76,15 @@ jobs:
       - name: Lerna Bootstrap
         run: lerna bootstrap --scope=${{matrix.package.name}} 
       - name: Lerna Check Formatting
+        id: lerna
         run: |
-          echo ::set-output name=$(lerna run --scope=${{matrix.package.name}} check-format)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} check-format)
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: 'FAILED Check Formatting - package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
+          args: 'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
 
       # {{EVENT_PAYLOAD.pusher.name}}   {{ EVENT_PAYLOAD.head_commit.commiter.name }}
 #, commit message: {{ EVENT_PAYLOAD.head_commit.message }}      
