@@ -67,7 +67,7 @@ jobs:
             ~/.npm
             node_modules
             */*/node_modules
-          key: pr-lerna-${{ runner.os }}-${{matrix.package.name}}-${{ hashFiles(${{ steps.package_lock.outputs.rel_path }}) }}
+          key: pr-lerna-${{ runner.os }}-${{matrix.package.name}}-${{ hashFiles(steps.package_lock.outputs.rel_path) }}
           restore-keys: |
               pr-lerna-${{ runner.os }}-${{matrix.package.name}}
               pr-lerna-${{ runner.os }}-
