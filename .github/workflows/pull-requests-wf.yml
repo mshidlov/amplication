@@ -60,3 +60,24 @@ jobs:
         id: package_lock
         run: |
           echo ::set-output name=rel_path::$(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | tr -d '"' | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            */*/node_modules
+          key: pr-lerna-${{ runner.os }}-${{matrix.package.name}}-${{ hashFiles(${{ steps.package_lock.outputs.rel_path }}) }}
+          restore-keys: |
+              pr-lerna-${{ runner.os }}-${{matrix.package.name}}
+              pr-lerna-${{ runner.os }}-
+      - name: npm ci
+        run: npm ci --cache ~/.npm --prefer-offline --only=production --silent      
+      - name: Lerna Bootstrap
+        run: lerna bootstrap --scope=${{matrix.package.name}} 
+      - name: Lerna Check Formatting
+        run: lerna run --scope=${{matrix.package.name}} check-format
+      
+      
+      
+      
