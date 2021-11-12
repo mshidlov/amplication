@@ -2,7 +2,7 @@ name: Package Size Report
 
 on:
   pull_request:
-    types: [synchronize]
+    types: [reopened]
 
 
 jobs:
