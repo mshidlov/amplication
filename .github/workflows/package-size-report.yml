@@ -1,8 +1,8 @@
 name: Package Size Report
 
 on:
-  pull_request:
-    types: [reopened]
+  push:
+  #  types: [reopened]
 
 
 jobs:
