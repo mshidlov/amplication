@@ -4,6 +4,7 @@ on:
   pull_request:
     types: [synchronize]
 
+
 jobs:
   pkg-size-report:
     name: Package Size Report
