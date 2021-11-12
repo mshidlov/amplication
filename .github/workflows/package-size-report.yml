@@ -22,4 +22,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          build-command: lerna bootstrap -- --production # ⬅ Set a different build script here
+          build-command: "lerna bootstrap -- --production" # ⬅ Set a different build script here
