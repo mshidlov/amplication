@@ -1,7 +1,7 @@
 name: Package Size Report
 
 on:
-  push:
+  pull_request:
   #  types: [reopened]
 
 
