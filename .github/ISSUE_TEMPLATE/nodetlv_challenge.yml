@@ -35,7 +35,3 @@ body:
       label: "🎤 Pitch"
       description: "Please explain why this feature is the best idea and should win the challenge"
       placeholder: "Example: I love mongoDB and use it all the time. I think many developers can benefit from this option."
-
-
-
-
