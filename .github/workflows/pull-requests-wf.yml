@@ -35,6 +35,19 @@ jobs:
         id: lerna-changed
         run: |
           echo ::set-output name=packages::$(lerna changed --json)
+      - name: Lerna Changed
+        id: lerna
+        run: |
+          lerna changed --json
+
+  validate-package-change:
+    runs-on: ubuntu-latest
+    needs:
+      - changed-packages
+    timeout-minutes: 45
+    steps:
+      - run: echo "${{ toJson(needs.changed-packages.outputs.packages) }}"
+
 
   validate-package:
     runs-on: ubuntu-latest
