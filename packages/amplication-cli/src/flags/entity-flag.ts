@@ -6,7 +6,7 @@ function getEntity(params: any): string | undefined {
 
   const configEntity = params?.configJSON?.AMP_CURRENT_ENTITY;
   if (configEntity) return configEntity;
-
+gdsgsdg
   return undefined;
 }
 export const entity = flags.build({
