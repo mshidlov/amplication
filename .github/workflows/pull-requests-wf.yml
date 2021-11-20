@@ -21,7 +21,8 @@ jobs:
            grep -Po 'packages/\K[^/]*' |
            sort -t: -u -k1,1 |
            sed -e "s/\(.*\)/package:@amplication\/\1:path:packages\/\1/" |
-           jq -Rs 'split("\n")' 
+           # jq -Rs 'split("\n")' 
+           jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1]}?)'
            # |
            # jq '[ .[] | select(length > 0) ]'
 
