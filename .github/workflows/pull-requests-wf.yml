@@ -14,7 +14,9 @@ jobs:
         with:
           fetch-depth: 0
       - run: |
-           git diff --name-only origin/master | grep -Po 'packages/\K[^/]*' | sort -t: -u -k1,1
+           git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
+           'packages/**/*.ts' 'packages/**/*.json' 'packages/**/*.gql' 'packages/**/*.md' | grep -Po 'packages/\K[^/]*' | sort -t: -u -k1,1
+           
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
