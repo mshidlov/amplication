@@ -71,36 +71,25 @@ jobs:
         run: lerna bootstrap --scope=${{matrix.package.name}} 
       
       - name: Format code
-        id: formatting
+        id: format
         run: |
           echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} check-format)
 
       - name: Lint code
-        id: linting
+        id: lint
         run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} check-format)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} lint)
       
       - name: Run tests
-        id: tests
+        id: test
         run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} check-format)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} test)
       
       - name: Discord notification
-        #if: ${{ failure() }}
+        if: ${{ failure() }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS : "{\"allowed_mentions\":{\"parse\":[\"everyone\"]},\"embeds\":[{\"author\":{\"name\":\"Name\"},\"title\":\"Title\",\"color\":\"51281\",\"fields\":[{\"name\":\"Label\",\"value\":648,\"inline\":true}]}]}"
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
           #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
-
-
-
-
-
-
-
-      # {{EVENT_PAYLOAD.pusher.name}}   {{ EVENT_PAYLOAD.head_commit.commiter.name }}
-#, commit message: {{ EVENT_PAYLOAD.head_commit.message }}      
-      
