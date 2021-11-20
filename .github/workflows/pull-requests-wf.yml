@@ -15,8 +15,12 @@ jobs:
           fetch-depth: 0
       - run: |
            git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
-           'packages/**/*.ts' 'packages/**/*.json' 'packages/**/*.gql' 'packages/**/*.md' \
-           | grep -Po 'packages/\K[^/]*' | sort -t: -u -k1,1 | sed -e "s/\(.*\)/@amplication\/\1/" | jq -Rs 'split("\n")' jq | '[ .[] | select(length > 0) ]'
+           'packages/**/*.ts' 'packages/**/*.json' 'packages/**/*.gql' 'packages/**/*.md' | 
+           grep -Po 'packages/\K[^/]*' |
+           sort -t: -u -k1,1 |
+           sed -e "s/\(.*\)/@amplication\/\1/" |
+           jq -Rs 'split("\n")' jq |
+           jq '[ .[] | select(length > 0) ]'
            
       - uses: actions/setup-node@v2
         with:
