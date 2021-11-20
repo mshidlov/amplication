@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.lerna-changed.outputs.packages }}
-      packages-v2: ${{ steps.lerna-changed.outputs.packages }}
+      packages-v2: ${{ steps.resolved-packages.outputs.packages }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -112,11 +112,11 @@ jobs:
         run: |
           echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} test)
       
-      - name: Discord notification
-        if: ${{ failure() }}
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
+      #- name: Discord notification
+      #  if: ${{ failure() }}
+      #  env:
+      #    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      #  uses: Ilshidur/action-discord@0.3.2
+      #  with:
+      #    args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
           #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
