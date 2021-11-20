@@ -25,29 +25,29 @@ jobs:
            # jq -Rs 'split("\n")' 
            jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1],(.[2]):.[3]}?)')
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - run: npm i -g npm@7.3.0
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            node_modules
-            */*/node_modules
-          key: pr-ci-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-              pr-ci-${{ runner.os }}-
-      - name: npm ci
-        run: npm ci --cache ~/.npm --prefer-offline --only=production --silent
-      - name: Lerna SINCE environment 
-        run: echo "SINCE=origin/master" >> $GITHUB_ENV           
-      - name: Lerna Changed
-        id: lerna-changed
-        run: |
-          lerna changed --json
-          echo ::set-output name=packages::$(lerna changed --json)
+      #- uses: actions/setup-node@v2
+      #  with:
+      #    node-version: 14.x
+      #- run: npm i -g npm@7.3.0
+      #- name: Cache node modules
+      #  uses: actions/cache@v2
+      #  with:
+      #    path: |
+      #      ~/.npm
+      #      node_modules
+      #      */*/node_modules
+      #    key: pr-ci-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      #    restore-keys: |
+      #        pr-ci-${{ runner.os }}-
+      #- name: npm ci
+      #  run: npm ci --cache ~/.npm --prefer-offline --only=production --silent
+      #- name: Lerna SINCE environment 
+      #  run: echo "SINCE=origin/master" >> $GITHUB_ENV           
+      #- name: Lerna Changed
+      #  id: lerna-changed
+      #  run: |
+      #    lerna changed --json
+      #    echo ::set-output name=packages::$(lerna changed --json)
 
   validate-package-change:
     runs-on: ubuntu-latest
@@ -65,14 +65,14 @@ jobs:
     timeout-minutes: 45
     strategy:
       matrix:
-        package: ${{ fromJson(needs.changed-packages.outputs.packages) }}
+        package: ${{ fromJson(needs.changed-packages.outputs.packages-v2) }}
     steps:
       - uses: actions/checkout@v2
 
-      - name: escape ${{matrix.package.name}} package-lock.json relative path 
+      - name: escape ${{matrix.package.package}} package-lock.json relative path 
         id: package_lock
         run: |
-          echo ::set-output name=rel_path::$(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.location))) }} | tr -d '"' | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
+          echo ::set-output name=rel_path::$(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.path))) }} | tr -d '"' | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
       
       - name: Cache node modules
         uses: actions/cache@v2
@@ -81,36 +81,36 @@ jobs:
             ~/.npm
             node_modules
             */*/node_modules
-          key: pr-lerna-${{ runner.os }}-${{matrix.package.name}}-${{ hashFiles(steps.package_lock.outputs.rel_path) }}
+          key: pr-lerna-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(steps.package_lock.outputs.rel_path) }}
           restore-keys: |
-              pr-lerna-${{ runner.os }}-${{matrix.package.name}}
+              pr-lerna-${{ runner.os }}-${{matrix.package.package}}
               pr-lerna-${{ runner.os }}-
       
       - name: Install Node.js dependencies
         run: npm ci --cache ~/.npm --prefer-offline --only=production --silent      
       
       - name: Install package dependencies
-        run: lerna bootstrap --scope=${{matrix.package.name}} 
+        run: lerna bootstrap --scope=${{matrix.package.package}} 
         
       - name: Build code
         id: build
         run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} build)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} build)
           
       - name: Format code
         id: format
         run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} check-format)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} check-format)
 
       - name: Lint code
         id: lint
         run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} lint)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} lint)
       
       - name: Run tests
         id: test
         run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} test)
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} test)
       
       #- name: Discord notification
       #  if: ${{ failure() }}
@@ -119,4 +119,4 @@ jobs:
       #  uses: Ilshidur/action-discord@0.3.2
       #  with:
       #    args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
-          #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
+          #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.package}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
