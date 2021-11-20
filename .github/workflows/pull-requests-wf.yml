@@ -43,7 +43,7 @@ jobs:
       - name: Lerna Changed
         id: lerna
         run: |
-          lerna updated -l
+          lerna updated -since=master...HEAD -l
 
   validate-package-change:
     runs-on: ubuntu-latest
