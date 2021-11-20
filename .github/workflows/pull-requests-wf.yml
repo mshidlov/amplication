@@ -29,13 +29,13 @@ jobs:
               pr-ci-${{ runner.os }}-
       - name: npm ci
         run: npm ci --cache ~/.npm --prefer-offline --only=production --silent
-      - name: Lerna SINCE environment 
-        run: echo "SINCE=origin/master" >> $GITHUB_ENV
-      - name: Lerna SINCE environment 
-        run: |
-          echo "SINCE=origin/$GITHUB_BASE_REF"
-          echo "SINCE=origin/master"
-          echo $GITHUB_ENV             
+      #- name: Lerna SINCE environment 
+      #  run: echo "SINCE=origin/master" >> $GITHUB_ENV
+      #- name: Lerna SINCE environment 
+      #  run: |
+      #    echo "SINCE=origin/$GITHUB_BASE_REF"
+      #    echo "SINCE=origin/master"
+      #    echo $GITHUB_ENV             
       - name: Lerna Changed
         id: lerna-changed
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Lerna Changed
         id: lerna
         run: |
-          lerna ls --since master
+          lerna diff --since master
           #lerna updated --since master...HEAD -l
       - name: Lerna Changed
         id: lerna1
