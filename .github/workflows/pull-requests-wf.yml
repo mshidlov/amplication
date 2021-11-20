@@ -93,10 +93,10 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: |
-            "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed!"
-            "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
-          
-          
+            join("", [
+              "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed!",
+              "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+            ]) 
           #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
 
 
