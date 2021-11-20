@@ -89,7 +89,7 @@ jobs:
         #if: ${{ failure() }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_EMBEDS : "{\"embeds\":[{\"title\":\"Meow!\",\"color\":1127128},{\"title\":\"Meow-meow!\",\"color\":14177041}]}"
+          DISCORD_EMBEDS : "{\"allowed_mentions\":{\"parse\":[\"everyone\"]},\"embeds\":[{\"author\":{\"name\":\"Name\"},\"title\":\"Title\",\"color\":\"51281\",\"fields\":[{\"name\":\"Label\",\"value\":648,\"inline\":true}]}]}"
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
