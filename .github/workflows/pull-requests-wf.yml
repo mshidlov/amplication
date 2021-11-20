@@ -43,7 +43,11 @@ jobs:
       - name: Lerna Changed
         id: lerna
         run: |
-          lerna updated -since=master...HEAD -l
+          lerna updated --since master...HEAD -l
+      - name: Lerna Changed
+        id: lerna1
+        run: |
+          lerna changed --json --since master...HEAD -l
 
   validate-package-change:
     runs-on: ubuntu-latest
