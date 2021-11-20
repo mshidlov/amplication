@@ -29,6 +29,8 @@ jobs:
               pr-ci-${{ runner.os }}-
       - name: npm ci
         run: npm ci --cache ~/.npm --prefer-offline --only=production --silent
+      - run: |
+           git diff --name-only master | grep -Po 'packages/\K[^/]*' | sort -t: -u -k1,1
       #- name: Lerna SINCE environment 
       #  run: echo "SINCE=origin/master" >> $GITHUB_ENV
       #- name: Lerna SINCE environment 
