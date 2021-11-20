@@ -43,7 +43,8 @@ jobs:
       - name: Lerna Changed
         id: lerna
         run: |
-          lerna updated --since master...HEAD -l
+          lerna ls --since master
+          #lerna updated --since master...HEAD -l
       - name: Lerna Changed
         id: lerna1
         run: |
