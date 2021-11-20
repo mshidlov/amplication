@@ -69,7 +69,12 @@ jobs:
       
       - name: Install package dependencies
         run: lerna bootstrap --scope=${{matrix.package.name}} 
-      
+        
+      - name: Build code
+        id: build
+        run: |
+          echo ::set-output name=result$(lerna run --scope=${{matrix.package.name}} build)
+          
       - name: Format code
         id: format
         run: |
