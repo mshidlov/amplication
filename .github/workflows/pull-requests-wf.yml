@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.lerna-changed.outputs.packages }}
+      packages-v2: ${{ steps.lerna-changed.outputs.packages }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -54,7 +55,7 @@ jobs:
       - changed-packages
     timeout-minutes: 45
     steps:
-      - run: echo "${{ toJson(needs.resolved-packages.outputs.packages) }}"
+      - run: echo "${{ toJson(needs.changed-packages.outputs.packages-v2) }}"
 
 
   validate-package:
