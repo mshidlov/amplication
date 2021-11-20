@@ -92,11 +92,7 @@ jobs:
           DISCORD_EMBEDS : "{embeds:[{title:Hello!,description:Hi! :grinning:}]}"
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: |
-            join("", [
-              "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed!",
-              "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
-            ]) 
+          args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
           #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.name}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
 
 
