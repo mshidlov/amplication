@@ -16,15 +16,13 @@ jobs:
       - name: Resolve changed packages
         id: resolved-packages
         run: |
-           git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
+           echo ::set-output name=packages::$(git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
            'packages/**/*.ts' 'packages/**/*.json' 'packages/**/*.gql' 'packages/**/*.md' | 
            grep -Po 'packages/\K[^/]*' |
            sort -t: -u -k1,1 |
            sed -e "s/\(.*\)/package:@amplication\/\1:path:packages\/\1/" |
            # jq -Rs 'split("\n")' 
-           jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1],(.[2]):.[3]}?)'
-           # |
-           # jq '[ .[] | select(length > 0) ]'
+           jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1],(.[2]):.[3]}?)')
 
       - uses: actions/setup-node@v2
         with:
@@ -42,26 +40,13 @@ jobs:
               pr-ci-${{ runner.os }}-
       - name: npm ci
         run: npm ci --cache ~/.npm --prefer-offline --only=production --silent
-      #- name: Lerna SINCE environment 
-      #  run: echo "SINCE=origin/master" >> $GITHUB_ENV
-      #- name: Lerna SINCE environment 
-      #  run: |
-      #    echo "SINCE=origin/$GITHUB_BASE_REF"
-      #    echo "SINCE=origin/master"
-      #    echo $GITHUB_ENV             
+      - name: Lerna SINCE environment 
+        run: echo "SINCE=origin/master" >> $GITHUB_ENV           
       - name: Lerna Changed
         id: lerna-changed
         run: |
+          lerna changed --json
           echo ::set-output name=packages::$(lerna changed --json)
-      - name: Lerna Changed
-        id: lerna
-        run: |
-          lerna diff --since master
-          #lerna updated --since master...HEAD -l
-      - name: Lerna Changed
-        id: lerna1
-        run: |
-          lerna changed --json --since master...HEAD -l
 
   validate-package-change:
     runs-on: ubuntu-latest
