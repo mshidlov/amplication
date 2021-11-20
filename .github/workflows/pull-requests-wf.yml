@@ -38,7 +38,7 @@ jobs:
       - name: Lerna Changed
         id: lerna
         run: |
-          lerna changed --json
+          lerna updated -l
 
   validate-package-change:
     runs-on: ubuntu-latest
