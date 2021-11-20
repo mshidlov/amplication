@@ -54,7 +54,7 @@ jobs:
       - changed-packages
     timeout-minutes: 45
     steps:
-      - run: echo "${{ toJson(needs.changed-packages.outputs.packages) }}"
+      - run: echo "${{ toJson(needs.resolved-packages.outputs.packages) }}"
 
 
   validate-package:
