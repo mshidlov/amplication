@@ -10,6 +10,8 @@ import { AuthService, AuthUser } from './auth.service';
 import { WorkspaceService } from '../workspace/workspace.service';
 import { EnumTokenType } from './dto';
 const EXAMPLE_TOKEN = 'EXAMPLE TOKEN';
+  
+
 
 const EXAMPLE_ACCOUNT: Account = {
   id: 'alice',
