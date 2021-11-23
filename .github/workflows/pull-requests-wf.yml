@@ -112,6 +112,8 @@ jobs:
         run: |
           echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} test)
       
+      - run: echo '[{"color":15734528,"title":"Push Validation Failed - {{ GITHUB_REF }}","description":"Job ${{ github.job }} in workflow ${{ github.workflow }} failed!","fields":[{"name":"Package","value":"${{ matrix.package.package }}"},{"name":"Commiter","value":"{{ EVENT_PAYLOAD.sender.login }}"},{"name":"Commit​","value":"​{{ EVENT_PAYLOAD.head_commit.id }}"},{"name":"Build","value":"${{ steps.lerna.outcome }}","inline":true},{"name":"Test","value":"${{ steps.test.outcome }}","inline":true},{"name":"Format","value":"${{ steps.format.outcome }}","inline":true},{"name":"Lint","value":"${{ steps.lint.outcome }}","inline":true}],"footer":{"text":"https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}}]'
+        
       - name: Discord notification
         if:  failure()
         env:
