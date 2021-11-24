@@ -54,7 +54,7 @@ jobs:
       
       - name: Install package dependencies
         id: lerna
-        run: lerna bootstrap --scope=${{matrix.package.package}} 
+        run: lerna bootstrap --scope=${{matrix.package.package}} --include-dependencies
         
       - name: Build code
         id: build
