@@ -17,12 +17,22 @@ jobs:
       - name: Resolve changed packages
         id: resolved-packages
         run: |
-           echo ::set-output name=packages::$(git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
+           echo ::set-output name=packages::$( \ 
+           
+           # Git Diff - Get all changed files 
+           git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
            'packages/**/*.ts' 'packages/**/*.json' 'packages/**/*.gql' 'packages/**/*.md' | 
+           
+           # Extract package names from files path
            grep -Po 'packages/\K[^/]*' |
+           
+           # Remove dupplication
            sort -t: -u -k1,1 |
+           
+           # Format, Example: amplication-cli => package:@amplication/cli:path:amplication-cli
            sed -e "s/amplication-\(.*\)/package:@amplication\/\1:path:packages\/amplication-\1/" |
-           # jq -Rs 'split("\n")' 
+           
+           # Create array of objects, => [{"package": "@amplication/cli", "path": "amplication-cli"}]
            jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1],(.[2]):.[3]}?)')
 
 
