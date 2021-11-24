@@ -68,7 +68,7 @@ jobs:
         
       - name: Build code
         id: build
-        run: lerna run --scope=${{matrix.package.package}} build
+        run: lerna run --scope=${{matrix.package.package}} build --include-dependencies
         
       - name: Format code
         id: format
