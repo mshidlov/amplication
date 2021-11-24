@@ -72,7 +72,7 @@ jobs:
         
       - name: Format code
         id: format
-        run: lerna run --scope=${{matrix.package.package}} check-format
+        run: lerna run --scope=${{matrix.package.package}} check-format -- --debug-check
 
       - name: Lint code
         id: lint
