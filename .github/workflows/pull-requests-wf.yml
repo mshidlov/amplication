@@ -58,23 +58,19 @@ jobs:
         
       - name: Build code
         id: build
-        run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} build)
-          
+        run: lerna run --scope=${{matrix.package.package}} build
+        
       - name: Format code
         id: format
-        run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} check-format)
+        run: lerna run --scope=${{matrix.package.package}} check-format
 
       - name: Lint code
         id: lint
-        run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} lint)
-      
+        run: lerna run --scope=${{matrix.package.package}} lint
+        
       - name: Run tests
         id: test
-        run: |
-          echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} test)
+        run: lerna run --scope=${{matrix.package.package}} test
         
       - name: Discord notification
         if:  failure()
