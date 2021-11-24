@@ -1,4 +1,4 @@
-name: Validate Push
+name: validate push
 
 on:
   workflow_dispatch:
@@ -6,14 +6,14 @@ on:
       
 jobs:
   changed-packages:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     outputs:
-      packages: ${{ steps.lerna-changed.outputs.packages }}
-      packages-v2: ${{ steps.resolved-packages.outputs.packages }}
+      packages: ${{ steps.resolved-packages.outputs.packages }}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      
       - name: Resolve changed packages
         id: resolved-packages
         run: |
@@ -25,55 +25,18 @@ jobs:
            # jq -Rs 'split("\n")' 
            jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1],(.[2]):.[3]}?)')
 
-      #- uses: actions/setup-node@v2
-      #  with:
-      #    node-version: 14.x
-      #- run: npm i -g npm@7.3.0
-      #- name: Cache node modules
-      #  uses: actions/cache@v2
-      #  with:
-      #    path: |
-      #      ~/.npm
-      #      node_modules
-      #      */*/node_modules
-      #    key: pr-ci-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      #    restore-keys: |
-      #        pr-ci-${{ runner.os }}-
-      #- name: npm ci
-      #  run: npm ci --cache ~/.npm --prefer-offline --only=production --silent
-      #- name: Lerna SINCE environment 
-      #  run: echo "SINCE=origin/master" >> $GITHUB_ENV           
-      #- name: Lerna Changed
-      #  id: lerna-changed
-      #  run: |
-      #    lerna changed --json
-      #    echo ::set-output name=packages::$(lerna changed --json)
-
-  validate-package-change:
-    runs-on: ubuntu-latest
-    needs:
-      - changed-packages
-    timeout-minutes: 45
-    steps:
-      - run: echo "${{ toJson(needs.changed-packages.outputs.packages-v2) }}"
-
 
   validate-package:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - changed-packages
     timeout-minutes: 45
     strategy:
       matrix:
-        package: ${{ fromJson(needs.changed-packages.outputs.packages-v2) }}
+        package: ${{ fromJson(needs.changed-packages.outputs.packages) }}
     steps:
       - uses: actions/checkout@v2
 
-      - name: escape ${{matrix.package.package}} package-lock.json relative path 
-        id: package_lock
-        run: |
-          echo ::set-output name=rel_path::$(echo ${{ toJSON(format('{0}/package-lock.json', toJSON(matrix.package.path))) }} | tr -d '"' | sed 's/\/home\/runner\/work\/amplication\/amplication\///')
-      
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -81,7 +44,7 @@ jobs:
             ~/.npm
             node_modules
             */*/node_modules
-          key: pr-lerna-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(steps.package_lock.outputs.rel_path) }}
+          key: pr-lerna-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('{0}/package-lock.json',matrix.package.path)) }}
           restore-keys: |
               pr-lerna-${{ runner.os }}-${{matrix.package.package}}
               pr-lerna-${{ runner.os }}-
@@ -112,16 +75,11 @@ jobs:
         id: test
         run: |
           echo ::set-output name=result$(lerna run --scope=${{matrix.package.package}} test)
-      
-      - run: echo '[{"color":15734528,"title":"Push Validation Failed - ${ GITHUB_REF }","description":"Job ${{ github.job }} in workflow ${{ github.workflow }} failed!","fields":[{"name":"Package","value":"${{ matrix.package.package }}"},{"name":"Commiter","value":"{{ EVENT_PAYLOAD.sender.login }}"},{"name":"Commit","value":"{{ EVENT_PAYLOAD.head_commit.id }}"},{"name":"Build","value":"${{ steps.lerna.outcome }}","inline":true},{"name":"Test","value":"${{ steps.test.outcome }}","inline":true},{"name":"Format","value":"${{ steps.format.outcome }}","inline":true},{"name":"Lint","value":"${{ steps.lint.outcome }}","inline":true}],"footer":{"text":"https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}}]'
-        if:  failure()
         
       - name: Discord notification
         if:  failure()
+        uses: Ilshidur/action-discord@0.3.2
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_EMBEDS: '[{"color":15734528,"title":"Push Validation Failed - ${{ github.ref_name }}","description":"Job ${{ github.job }} in workflow ${{ github.workflow }} failed!","fields":[{"name":"Package","value":"${{ matrix.package.package }}"},{"name":"Commiter","value":"${{ github.event.pusher.name }}"},{"name":"Commit","value":"${{ github.event.head_commit.id }}"},{"name":"Build","value":"${{ steps.lerna.outcome }}","inline":true},{"name":"Test","value":"${{ steps.test.outcome }}","inline":true},{"name":"Format","value":"${{ steps.format.outcome }}","inline":true},{"name":"Lint","value":"${{ steps.lint.outcome }}","inline":true}],"footer":{"text":"https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"}}]'
-        uses: Ilshidur/action-discord@0.3.2
-#         with:
-#           args: "Job ${{ github.job }} in workflow ${{ github.workflow }} of ${{github.repository}} failed! https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" 
-          #'FAILED Check Formatting - ${{ steps.lerna.outputs.result }} | package: ${{matrix.package.package}} ,  Commit: {{ EVENT_PAYLOAD.head_commit.id }} ,  branch: {{ GITHUB_REF }} ,  commiter: {{EVENT_PAYLOAD.sender.login}}'
+        
