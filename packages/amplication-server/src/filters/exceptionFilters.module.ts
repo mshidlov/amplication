@@ -11,7 +11,7 @@ import { GithubAuthExceptionFilter } from './github-auth-exception.filter';
 
 @Module(
 {
-                imports: [ConfigModule, RootWinstonModule],
+  imports: [ConfigModule, RootWinstonModule],
   providers: [GqlResolverExceptionsFilter, GithubAuthExceptionFilter],
   exports: [GqlResolverExceptionsFilter, GithubAuthExceptionFilter]
 })
