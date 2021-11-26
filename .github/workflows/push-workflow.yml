@@ -3,6 +3,9 @@ name: validate push
 on:
   workflow_dispatch:
   push:
+      paths:
+      - "packages/**"
+      - ".github/workflows/push-workflow.yml"
       
 jobs:
   changed-packages:
@@ -47,32 +50,38 @@ jobs:
     steps:
       - uses: actions/checkout@v2                                                       
 
-#       - name: Cache node modules
-#         uses: actions/cache@v2
-#         with:
-#           path: |
-#             ~/.npm
-#             node_modules
-#             */*/node_modules
-#           key: PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('{0}/package-lock.json',matrix.package.path)) }}
-#           restore-keys: |
-#               PUSH-${{ runner.os }}-${{matrix.package.package}}
-#               PUSH-${{ runner.os }}-
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            */*/node_modules
+          key: PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('{0}/package-lock.json',matrix.package.path)) }}
+          restore-keys: |
+              PUSH-${{ runner.os }}-${{matrix.package.package}}
+              PUSH-${{ runner.os }}-
       
-#       - name: Install Node.js dependencies
-#         run: npm ci --cache ~/.npm --prefer-offline --only=production --silent      
+      - name: Install Node.js dependencies
+        run: npm ci --cache ~/.npm --prefer-offline --only=production --silent      
       
-#       - name: Install package dependencies
-#         id: install
-#         run: lerna bootstrap --scope=${{matrix.package.package}} --include-dependencies
+      - name: Install package dependencies
+        id: install
+        run: lerna bootstrap --scope=${{matrix.package.package}} --include-dependencies
         
-#       - name: Build code
-#         id: build
-#         run: lerna run --scope=${{matrix.package.package}} build --include-dependencies
+      - name: Build code
+        id: build
+        run: lerna run --scope=${{matrix.package.package}} build --include-dependencies
         
-#       - name: Format code
-#         id: format
-#         run: lerna run --scope=${{matrix.package.package}} check-format
+      - name: Format code
+        id: format
+        run: lerna run --scope=${{matrix.package.package}} check-format
+
+      - name: Show Format Error
+        if: steps.format.outcome != 'success'
+        run: |
+          lerna run --scope=${{matrix.package.package}} check-format
+          git --no-pager diff
 
 #       - name: Lint code
 #         id: lint
