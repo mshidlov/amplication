@@ -47,8 +47,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('packages/{0}/package-lock.json',matrix.package.path)) }}
-      - run: echo PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ format('packages/{0}/package-lock.json',matrix.package.path) }}
+      - run: echo PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('{0}/package-lock.json',matrix.package.path)) }}
+      - run: echo PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ format('{0}/package-lock.json',matrix.package.path) }}
                                                                                         
 
 #       - name: Cache node modules
