@@ -78,7 +78,7 @@ jobs:
         run: lerna run --scope=${{matrix.package.package}} check-format
 
       - name: Show Format Error
-        if: steps.format.outcome != 'success'
+        if: ${{ steps.format.outcome }} != 'success'
         run: |
           lerna run --scope=${{matrix.package.package}} check-format
           git --no-pager diff
