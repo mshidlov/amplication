@@ -45,11 +45,7 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.changed-packages.outputs.packages) }}
     steps:
-      - uses: actions/checkout@v2
-
-      - run: echo PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('{0}/package-lock.json',matrix.package.path)) }}
-      - run: echo PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ format('{0}/package-lock.json',matrix.package.path) }}
-                                                                                        
+      - uses: actions/checkout@v2                                                       
 
 #       - name: Cache node modules
 #         uses: actions/cache@v2
@@ -58,7 +54,7 @@ jobs:
 #             ~/.npm
 #             node_modules
 #             */*/node_modules
-#           key: PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('packages/{0}/package-lock.json',matrix.package.path)) }}
+#           key: PUSH-${{ runner.os }}-${{matrix.package.package}}-${{ hashFiles(format('{0}/package-lock.json',matrix.package.path)) }}
 #           restore-keys: |
 #               PUSH-${{ runner.os }}-${{matrix.package.package}}
 #               PUSH-${{ runner.os }}-
