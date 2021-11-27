@@ -65,13 +65,16 @@ jobs:
         id: install
         run: lerna bootstrap --scope=${{matrix.package.package}} --include-dependencies
 
+      - name: Build package dependencies
+        id: build
+        run: lerna run --scope=${{matrix.package.package}} build --include-dependencies
+
       - name: Run tests
         uses: mattallty/jest-github-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          test-command: npm run test:cov
-          working-directory: ${{matrix.package.path}}
+          test-command: lerna run --scope=${{matrix.package.package}} --include-dependencies test:ci
 
 #      - name: Discord notification
 #        if:  failure()
