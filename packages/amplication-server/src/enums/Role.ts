@@ -8,7 +8,6 @@ export enum Role {
 }
 registerEnumType(Role, {
   name: 'Role',
-  
-  
+
   description: undefined
 });
