@@ -80,7 +80,7 @@ jobs:
       - name: Show Format Error
         if: failure() && steps.format.outcome == 'failure'
         run: |
-          lerna run --scope=${{matrix.package.package}} format
+          lerna run --scope=${{matrix.package.package}} format -- -- --loglevel=silent
           git --no-pager diff
 
       - name: Lint code
