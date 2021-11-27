@@ -3,7 +3,7 @@
   "version": "0.10.2",
   "private": true,
   "scripts": {
-    "test:ci": "npm run prisma:generate && jest --silent --ci --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
+    "test:ci": "npm run prisma:generate && jest",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "check-format": "prettier --check \"**/*.{js,ts,json,gql,md,yaml}\"",
