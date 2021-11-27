@@ -70,11 +70,14 @@ jobs:
         run: lerna run --scope=${{matrix.package.package}} build --include-dependencies
 
       - name: Run tests
+        run: lerna run --scope=${{matrix.package.package}} test:ci
+
+      - name: Publish tests
         uses: mattallty/jest-github-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          test-command: lerna run --scope=${{matrix.package.package}} --include-dependencies test:ci
+          test-command: echo done
 
 #      - name: Discord notification
 #        if:  failure()
