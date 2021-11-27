@@ -1,0 +1,29 @@
+name: Nightly Builds
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+
+  amplication-all:
+    name: Running full build and tests on all Amplication packages
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout
+        run: echo ""
+      
+      - name: Set up npm 7.3.X
+        run: echo ""
+      
+      - name: Cache npm cache
+        run: echo ""
+      
+      - name: Run ngihtly build script
+        run: echo ""
+      
+      - name: Test Reports
+        # Makes it easier to spot failures instead of looking at the logs.
+        if: ${{ failure() }}
+        run: echo ""
