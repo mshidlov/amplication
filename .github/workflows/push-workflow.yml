@@ -23,8 +23,7 @@ jobs:
            echo ::set-output name=packages::$( \ 
            
            # Git Diff - Get all changed files 
-           git diff --name-only origin/master -- 'packages/**/*.yaml' 'packages/**/*.js' \
-           'packages/**/*.ts' 'packages/**/*.json' 'packages/**/*.gql' 'packages/**/*.md' | 
+           git diff --name-only origin/master -- 'packages/**' | 
            
            # Extract package names from files path
            grep -Po 'packages/\K[^/]*' |
