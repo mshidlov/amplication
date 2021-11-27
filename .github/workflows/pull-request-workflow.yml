@@ -73,6 +73,7 @@ jobs:
         run: lerna run --scope=${{matrix.package.package}} test:ci
 
       - name: Publish tests
+        if: always()
         uses: mattallty/jest-github-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

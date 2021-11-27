@@ -462,6 +462,7 @@ describe('AppResolver', () => {
   });
 
   it('should find one app', async () => {
+    fail()
     const res = await apolloClient.query({
       query: FIND_ONE_APP_QUERY,
       variables: { id: EXAMPLE_APP_ID }
