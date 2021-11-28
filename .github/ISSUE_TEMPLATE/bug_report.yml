@@ -35,12 +35,12 @@ body:
       label: Environment
       description: In which environment does the problem occur?
       placeholder: "
-        OS: [Linux: cat /etc/os-release && uname -a, Windows: wmic os get Caption, Version, BuildNumber, OSArchitecture]
-        Node version: [node -v]
-        NPM version: [npm -v]
-        Docker version: [docker -v]
-        Kubernetes version: ['''$ kubectl version''']
-        Cloud Provider: [AWS, GCP, Azure, Herokue, ...]
+        OS: [Linux: cat /etc/os-release && uname -a, Windows: wmic os get Caption, Version, BuildNumber, OSArchitecture] \n
+        Node version: [node -v] \n
+        NPM version: [npm -v] \n
+        Docker version: [docker -v] \n
+        Kubernetes version: [kubectl version] \n
+        Cloud Provider: [AWS, GCP, Azure, Herokue, ...] \n
         "
     validations:
       required: true
