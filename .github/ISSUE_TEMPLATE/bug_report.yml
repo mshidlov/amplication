@@ -34,13 +34,14 @@ body:
     attributes:
       label: Environment
       description: In which environment does the problem occur?
-      placeholder: >
+      placeholder: "
         On Linux:
         $ cat /etc/os-release
         $ uname -a
 
         On Windows:
         $ wmic os get Caption, Version, BuildNumber, OSArchitecture
+        "
     validations:
       required: true
   - type: dropdown
