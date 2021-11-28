@@ -35,11 +35,11 @@ body:
       label: Environment
       description: In which environment does the problem occur?
       placeholder: "
-        On Linux:
+        # On Linux:
         $ cat /etc/os-release
         $ uname -a
 
-        On Windows:
+        # On Windows:
         $ wmic os get Caption, Version, BuildNumber, OSArchitecture
         "
     validations:
