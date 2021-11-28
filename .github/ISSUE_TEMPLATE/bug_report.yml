@@ -30,7 +30,7 @@ body:
         - "master (development)"
     validations:
       required: true
-  - type: input
+  - type: textarea
     attributes:
       label: Environment
       description: In which environment does the problem occur?
