@@ -32,9 +32,16 @@ body:
       required: true
   - type: input
     attributes:
-      label: Operating System
-      description: What Operating System are you using?
-      placeholder: "You can get it via `cat /etc/os-release` for example"
+      label: Environment
+      description: In which environment does the problem occur?
+      placeholder: "
+      # On Linux:
+      $ cat /etc/os-release
+      $ uname -a
+
+      # On Windows:
+      C:\> wmic os get Caption, Version, BuildNumber, OSArchitecture
+      "
     validations:
       required: true
   - type: dropdown
@@ -61,8 +68,8 @@ body:
         software (docker-compose, helm, k8s, etc.), any customisation and configuration you added.
   - type: textarea
     attributes:
-      label: What happened
-      description: Describe what happened.
+      label: What happened?
+      description: Please provide as much info as possible. If this matter is security related, please disclose it privately via [Amplication Security]
       placeholder: >
         Please provide the context in which the problem occurred and explain what happened
   - type: textarea
