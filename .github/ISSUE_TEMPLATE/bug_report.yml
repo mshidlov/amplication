@@ -6,7 +6,10 @@ body:
   - type: markdown
     attributes:
       value: "
-        <img src='https://amplication.com/assets/amplication-logo.svg' align='left' width='80' height='80'>
+        <svg viewBox="0 0 60 55" width="80" height="80"  align='left'
+          <use xlink:href="https://amplication.com/assets/amplication-logo.svg"></use>
+        </svg>
+        <!--<img src='https://amplication.com/assets/amplication-logo.svg' align='left' width='80' height='80'>-->
         Thank you for finding the time to report the problem!
 
         We really appreciate the community efforts to improve Amplication.
