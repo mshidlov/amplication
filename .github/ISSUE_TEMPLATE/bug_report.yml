@@ -19,7 +19,6 @@ body:
       label: Amplication version
       description: >
         What Amplication version are you using?
-        discuss older versions, open [Discussion](https://github.com/apache/amplication/discussions) instead!
     validations:
       required: true
   - type: textarea
