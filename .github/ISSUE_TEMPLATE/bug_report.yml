@@ -59,14 +59,12 @@ body:
       label: Environment
       description: In which environment does the problem occur?
       placeholder: "
-        OS: \n
-            [ Linux: cat /etc/os-release && uname -a, \n
-              Windows: wmic os get Caption, Version, BuildNumber, OSArchitecture ] \n
         Node version: [node -v] \n
         NPM version: [npm -v] \n
         Docker version: [docker -v] \n
-        Kubernetes version: [kubectl version] \n
         Cloud Provider: [AWS, GCP, Azure, Herokue, ...] \n
+        OS Details(Linux): [cat /etc/os-release && uname -a]\n
+        OS Details(Windows): [wmic os get Caption, Version, BuildNumber, OSArchitecture]
         "
     validations:
       required: true
