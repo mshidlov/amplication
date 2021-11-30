@@ -15,19 +15,19 @@ body:
 
         You can open [Pull Request](https://github.com/amplication/amplication/pulls) immediately instead.
         <br clear='left'/>"
-  - type: dropdown
+  - type: input
     attributes:
       label: Amplication version
       description: >
-        What Amplication version are you using? Only Amplication 0.10 is supported for bugs. If you wish to
+        What Amplication version are you using? Only Amplication latest release is supported for bugs. If you wish to
         discuss older versions, open [Discussion](https://github.com/apache/amplication/discussions) instead!
-      multiple: false
-      options:
-        - "0.10.3 (latest released)"
-        - "0.10.2"
-        - "0.10.1"
-        - "0.9.0"
-        - "master (development)"
+#       multiple: false
+#       options:
+#         - "0.10.3 (latest released)"
+#         - "0.10.2"
+#         - "0.10.1"
+#         - "0.9.0"
+#         - "master (development)"
     validations:
       required: true
   - type: textarea
@@ -35,7 +35,9 @@ body:
       label: Environment
       description: In which environment does the problem occur?
       placeholder: "
-        OS: [Linux: cat /etc/os-release && uname -a, Windows: wmic os get Caption, Version, BuildNumber, OSArchitecture] \n
+        OS: \n
+            [ Linux: cat /etc/os-release && uname -a, \n
+              Windows: wmic os get Caption, Version, BuildNumber, OSArchitecture ] \n
         Node version: [node -v] \n
         NPM version: [npm -v] \n
         Docker version: [docker -v] \n
@@ -44,28 +46,13 @@ body:
         "
     validations:
       required: true
-  - type: dropdown
-    attributes:
-      label: Deployment
-      description: >
-        What kind of deployment do you have? 
-      multiple: false
-      options:
-        - "Official Amplication Helm Chart"
-        - "Other 3rd-party Helm chart"
-        - "Docker-Compose"
-        - "Other Docker-based deployment"
-        - "Virtualenv installation"
-        - "Other"
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: Deployment details
-      description: Additional description of your deployment.
-      placeholder: >
-        Enter any relevant details of your deployment. Especially version of your tools,
-        software (docker-compose, helm, k8s, etc.), any customisation and configuration you added.
+#   - type: textarea
+#     attributes:
+#       label: Deployment details
+#       description: Additional description of your deployment.
+#       placeholder: >
+#         Enter any relevant details of your deployment. Especially version of your tools,
+#         software (docker-compose, helm, k8s, etc.), any customisation and configuration you added.
   - type: textarea
     attributes:
       label: What happened?
@@ -79,17 +66,17 @@ body:
       placeholder: >
         Please explain why you think the behaviour is erroneous. It is extremely helpful if you copy&paste
         the fragment of logs showing the exact error messages or wrong behaviour and screenshots for
-        UI problems or YouTube link to a video of you demonstrating the problem. You can include files by
+        UI problems or a video of you demonstrating the problem. You can include files by
         dragging and dropping them here.
   - type: textarea
     attributes:
       label: How to reproduce
       description: >
         What should we do to reproduce the problem? If you are not able to provide a reproducible case,
-        please open a [Discussion](https://github.com/apache/amplication/discussions) instead.
+        please open a [Discussion](https://github.com/amplication/amplication/discussions) instead.
       placeholder: >
         Please make sure you provide a reproducible step-by-step case of how to reproduce the problem
-        as minimally and precisely as possible. Keep in mind we do not have access to your cluster or DAGs.
+        as minimally and precisely as possible. Keep in mind we do not have access to your local environment.
         Remember that non-reproducible issues will be closed! Opening a discussion is recommended as a
         first step.
   - type: textarea
