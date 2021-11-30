@@ -18,7 +18,7 @@ body:
     attributes:
       label: Amplication version
       description: >
-        What Amplication version are you using? Only Amplication latest release is supported for bugs. If you wish to
+        What Amplication version are you using?
         discuss older versions, open [Discussion](https://github.com/apache/amplication/discussions) instead!
     validations:
       required: true
