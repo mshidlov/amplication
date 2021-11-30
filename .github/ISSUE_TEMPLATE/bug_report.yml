@@ -63,8 +63,8 @@ body:
         NPM version: [npm -v] \n
         Docker version: [docker -v] \n
         Cloud Provider: [AWS, GCP, Azure, Herokue, ...] \n
-        OS Details(Linux): [cat /etc/os-release && uname -a]\n
-        OS Details(Windows): [wmic os get Caption, Version, BuildNumber, OSArchitecture]
+        OS Details (Linux): [cat /etc/os-release && uname -a]\n
+        OS Details (Windows): [wmic os get Caption, Version, BuildNumber, OSArchitecture]
         "
     validations:
       required: true
