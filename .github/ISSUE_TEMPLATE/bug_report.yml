@@ -54,7 +54,7 @@ body:
         first step.
     validations:
       required: true
-- type: textarea
+  - type: textarea
     attributes:
       label: Environment
       description: In which environment does the problem occur?
