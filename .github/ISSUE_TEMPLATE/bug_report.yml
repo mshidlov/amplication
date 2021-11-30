@@ -1,5 +1,6 @@
-name: Amplication Bug report
+name: 🐛 Bug Report
 description: Problems and issues with code of Amplication
+title: 🐛 Bug Report: 
 labels: ["type/bug"]
 body:
   - type: markdown
