@@ -93,7 +93,7 @@ body:
       description: The [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md) helps create a safe space for everyone. We require
         that everyone agrees to it.
       options:
-        - Yes
+        - 'Yes'
     validations:
       required: true
   - type: markdown
