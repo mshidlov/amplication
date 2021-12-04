@@ -77,7 +77,7 @@ body:
         Any relevant logs to include? Put them here inside fenced
         ``` ``` blocks or inside a foldable details tag if it's long:
         <details><summary>x.log</summary> lots of stuff </details>
-  - type: checkboxes
+  - type: dropdown
     attributes:
       label: Are you willing to submit PR?
       description: >
@@ -85,8 +85,9 @@ body:
         especially if you already have a good understanding of how to implement the fix.
         Amplication is a community-managed project and we love to bring new contributors in.
         Find us in #how-to-pr on [Discord](https://discord.gg/cEcS9zDA)!
+      multiple: true
       options:
-        - label: Yes I am willing to submit a PR!
+        - "Yes I am willing to submit a PR!"
   - type: dropdown
     attributes:
       label: Code of Conduct
