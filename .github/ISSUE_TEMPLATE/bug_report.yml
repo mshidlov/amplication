@@ -94,6 +94,7 @@ body:
         that everyone agrees to it.
       options:
         - Yes
+    validations:
       required: true
   - type: markdown
     attributes:
