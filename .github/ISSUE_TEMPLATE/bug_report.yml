@@ -15,13 +15,6 @@ body:
 
         You can open [Pull Request](https://github.com/amplication/amplication/pulls) immediately instead.
         <br clear='left'/>"
-  - type: input
-    attributes:
-      label: Amplication version
-      description: >
-        What Amplication version are you using?
-    validations:
-      required: true
   - type: textarea
     attributes:
       label: What happened?
@@ -52,6 +45,13 @@ body:
         as minimally and precisely as possible. Keep in mind we do not have access to your local environment.
         Remember that non-reproducible issues will be closed! Opening a discussion is recommended as a
         first step.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Amplication version
+      description: >
+        What Amplication version are you using?
     validations:
       required: true
   - type: textarea
