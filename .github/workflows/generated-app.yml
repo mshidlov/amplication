@@ -50,8 +50,8 @@ jobs:
        - name: Generate test data service
          run: npm run generate-test-data-service
 
-       - name: Run test data service's tests
-         run: lerna run test --scope=@amplication/data-service-generator
+#       - name: Run test data service's tests
+#         run: lerna run test --scope=@amplication/data-service-generator
 
 #      - name: 'Discord notification'
 ##        if: failure()
