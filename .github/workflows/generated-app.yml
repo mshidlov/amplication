@@ -5,7 +5,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  tests:
+
+  amplication-all:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
