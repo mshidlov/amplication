@@ -43,16 +43,16 @@ jobs:
 
        - name: Data Service Generator - Geneeate Prisma
          run: lerna run prisma:generate --scope=@amplication/data-service-generator --include-dependencies
-#
-#       - name: Build Data Service Generator
-#         run: lerna run build --scope=@amplication/data-service-generator --include-dependencies
-#
-#       - name: Generate test data service
-#         run: npm run generate-test-data-service
-#
-#       - name: Run test data service's tests
-#         run: lerna run test --scope=@amplication/data-service-generator
-#
+
+       - name: Build Data Service Generator
+         run: lerna run build --scope=@amplication/data-service-generator --include-dependencies
+
+       - name: Generate test data service
+         run: npm run generate-test-data-service
+
+       - name: Run test data service's tests
+         run: lerna run test --scope=@amplication/data-service-generator
+
 #      - name: 'Discord notification'
 ##        if: failure()
 #        uses: Ilshidur/action-discord@0.3.2
