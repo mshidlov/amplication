@@ -53,11 +53,11 @@ jobs:
        - name: Run test data services tests
          run: lerna run test --scope=@amplication/data-service-generator
 
-#       - name: Discord notification
-#         uses: Ilshidur/action-discord@0.3.2
-#           env:
-#             DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-#             DISCORD_EMBEDS: '[{"color":15734528,"title":"Generated App Tests Failed - ${{ github.ref_name }}","url":"https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}","description":"Job ${{ github.job }} in workflow ${{ github.workflow }} failed!","author":{"name":"${{ github.event.sender.login }}","icon_url":"${{ github.event.sender.avatar_url }}","url":"${{ github.event.sender.html_url }}"},"fields":[{"name":"Node version","value":"${{ matrix.node-version }}"},{"name":"Committer","value":"${{ github.event.head_commit.committer.name }}"}]}]'
+       - name: Discord notification
+         uses: Ilshidur/action-discord@0.3.2
+         env:
+           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+           DISCORD_EMBEDS: '[{"color":15734528,"title":"Generated App Tests Failed - ${{ github.ref_name }}","url":"https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}","description":"Job ${{ github.job }} in workflow ${{ github.workflow }} failed!","author":{"name":"${{ github.event.sender.login }}","icon_url":"${{ github.event.sender.avatar_url }}","url":"${{ github.event.sender.html_url }}"},"fields":[{"name":"Node version","value":"${{ matrix.node-version }}"},{"name":"Committer","value":"${{ github.event.head_commit.committer.name }}"}]}]'
 #
 #      - name: 'Discord notification'
 ##        if: failure()
