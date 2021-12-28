@@ -54,7 +54,7 @@ jobs:
          run: lerna run test --scope=@amplication/data-service-generator
 
        - name: Discord notification
-##       if: failure()
+         if: failure()
          uses: Ilshidur/action-discord@0.3.2
          env:
            DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
