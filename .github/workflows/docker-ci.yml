@@ -1,0 +1,45 @@
+name: validate push
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "packages/**"
+      - ".github/workflows/push-workflow.yml"
+
+
+jobs:
+  changed-packages:
+    runs-on: ubuntu-20.04
+    outputs:
+      packages: ${{ steps.resolved-packages.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - run: echo ${{ toJson(github.event) }}
+      
+      - name: Resolve changed packages
+        id: resolved-packages
+        run: |
+          echo ::set-output name=packages::$( \
+
+          # Git Diff - Get all changed files
+          git diff --name-only origin/master -- 'packages/**' |
+
+          # Extract package names from files path
+          grep -Po 'packages/\K[^/]*' |
+
+          # Dupplication
+          sort -t: -u -k1,1 |
+
+          # Format, Example: amplication-cli => package:@amplication/cli:path:amplication-cli
+          sed -e "s/amplication-\(.*\)/package:@amplication\/\1:path:packages\/amplication-\1/" |
+
+          # Create array of objects, => [{"package": "@amplication/cli", "path": "amplication-cli"}]
+          jq -Rs 'split("\n")|map(split(":")|{(.[0]):.[1],(.[2]):.[3]}?)')
+          
+          
+          
+          
