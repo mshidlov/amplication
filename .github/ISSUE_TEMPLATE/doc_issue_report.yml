@@ -47,9 +47,6 @@ body:
         - "Yes I am willing to submit a PR!"
   - type: markdown
     attributes:
-      value: "Thanks for completing our form!"
-  - type: markdown
-    attributes:
       value: <br>
   - type: markdown
     attributes:
