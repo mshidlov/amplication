@@ -66,15 +66,6 @@ body:
         OS Details (Windows): [wmic os get Caption, Version, BuildNumber, OSArchitecture]
         "
 
-  - type: textarea
-    attributes:
-      label: Anything else
-      description: Anything else we need to know?
-      placeholder: >
-        How often does this problem occur? (Once? Every time? Only when certain conditions are met?)
-        Any relevant logs to include? Put them here inside fenced
-        ``` ``` blocks or inside a foldable details tag if it's long:
-        <details><summary>x.log</summary> lots of stuff </details>
   - type: dropdown
     attributes:
       label: Are you willing to submit PR?
