@@ -53,7 +53,7 @@ body:
       description: >
         What Amplication version are you using?
 
-- type: textarea
+  - type: textarea
     attributes:
       label: Environment
       description: In which environment does the problem occur?
