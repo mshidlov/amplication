@@ -38,7 +38,7 @@ body:
         - "Yes I am willing to submit a PR!"
   - type: markdown
     attributes:
-      value: "###Code of Conduct"
+      value: 
   - type: markdown
     attributes:
       value: |
