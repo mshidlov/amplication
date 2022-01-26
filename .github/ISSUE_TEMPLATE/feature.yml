@@ -50,4 +50,11 @@ body:
     attributes:
       value: "
         By submitting this issue I agree to follow this project's [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)
-        "
+        "       
+  - type: markdown
+    attributes:
+      value: |
+        <h1> Code of Conduct </h1>
+        <span>By submitting this issue I agree to follow this project's [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)<span> 
+        
+        
