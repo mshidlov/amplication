@@ -39,10 +39,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        <div>
-          <h2>Code of Conduct <h2>
-          <h4>By submitting this issue I agree to follow this project`s [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)</h4>
-        <div>
+        <h2>Code of Conduct <h2>
+        <h4>By submitting this issue I agree to follow this project`s [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)</h4>
   - type: markdown
     attributes:
       value: By submitting this issue I agree to follow this project`s [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)
