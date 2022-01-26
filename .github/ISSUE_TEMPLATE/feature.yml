@@ -45,6 +45,7 @@ body:
         Amplication is a community-managed project and we love to bring new contributors in.
         Find us in #how-to-pr on [Discord](https://discord.gg/cEcS9zDA)!
       options:
+       -
   - type: markdown
     attributes:
       value: "
