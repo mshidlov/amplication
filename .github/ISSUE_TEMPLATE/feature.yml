@@ -38,7 +38,7 @@ body:
         - "Yes I am willing to submit a PR!"
   - type: markdown
     attributes:
-      value: <p class="h3">Code of Conduct </p>
+      value: <h2>Code of Conduct <h2>
   - type: markdown
     attributes:
       value: By submitting this issue I agree to follow this project`s [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)
