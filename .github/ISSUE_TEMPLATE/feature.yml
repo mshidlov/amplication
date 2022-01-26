@@ -41,7 +41,7 @@ body:
       value: |
         <div>
           <h2>Code of Conduct <h2>
-          <span>By submitting this issue I agree to follow this project`s [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)</span>
+          <h4>By submitting this issue I agree to follow this project`s [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)</h4>
         <div>
   - type: markdown
     attributes:
