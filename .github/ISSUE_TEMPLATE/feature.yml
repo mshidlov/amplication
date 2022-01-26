@@ -39,7 +39,7 @@ body:
   - type: markdown
     attributes:
       value: | 
-        ###Code of Conduct
+        "###Code of Conduct"
   - type: markdown
     attributes:
       value: |
