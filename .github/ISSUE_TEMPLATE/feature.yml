@@ -14,8 +14,8 @@ body:
 
         You can open [Pull Request](https://github.com/amplication/amplication/pulls) immediately after.
         <br clear='left'/>"
-      validations:
-        required: true
+    validations:
+      required: true
 
   - type: textarea
     attributes:
