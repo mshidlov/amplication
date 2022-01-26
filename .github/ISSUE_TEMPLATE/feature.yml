@@ -14,8 +14,8 @@ body:
 
         You can open [Pull Request](https://github.com/amplication/amplication/pulls) immediately after.
         <br clear='left'/>"
-    validations:
-      required: true
+      validations:
+        required: true
 
   - type: textarea
     attributes:
@@ -38,4 +38,4 @@ body:
         - "Yes I am willing to submit a PR!"
   - type: markdown
     attributes:
-      value: "By submittinh this issue I agree to follow this project's [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)"
+      value: "By submitting this issue I agree to follow this project's [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)"
