@@ -36,25 +36,10 @@ body:
       multiple: true
       options:
         - "Yes I am willing to submit a PR!"
-  - type: dropdown
-    attributes:
-      label:  you willing to submit PR?
-      description: >
-        This is absolutely not required, but we are happy to guide you in the contribution process
-        especially if you already have a good understanding of how to implement the fix.
-        Amplication is a community-managed project and we love to bring new contributors in.
-        Find us in #how-to-pr on [Discord](https://discord.gg/cEcS9zDA)!
-      options:
-       -
-  - type: markdown
-    attributes:
-      value: "
-        By submitting this issue I agree to follow this project's [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)
-        "       
   - type: markdown
     attributes:
       value: |
         <h3> Code of Conduct </h3>
-        <span>By submitting this issue I agree to follow this project's <a herf="https://github.com/amplication/amplication/blob/master/code_of_conduct.md">Code of Conduct]</a><span> 
+        By submitting this issue I agree to follow this project's [Code of Conduct](https://github.com/amplication/amplication/blob/master/code_of_conduct.md)
         
         
