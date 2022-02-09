@@ -11,6 +11,11 @@ import { OAuthApp } from '@octokit/oauth-app';
 // We currently ignore it and should look deeper into the root cause
 // eslint-disable-next-line import/no-unresolved
 import { components } from '@octokit/openapi-types';
+import { IGitClient } from '../git/contracts/IGitClient';
+import { CreateRepoArgsType } from '../git/contracts/types/CreateRepoArgsType';
+import { GitRepo } from '../git/dto/objects/GitRepo';
+import { ApolloError } from 'apollo-server-errors';
+import { GitUser } from '../git/dto/objects/GitUser';
 
 const GITHUB_FILE_TYPE = 'file';
 
@@ -25,11 +30,68 @@ export const UNEXPECTED_FILE_TYPE_OR_ENCODING = `Unexpected file type or encodin
 type DirectoryItem = components['schemas']['content-directory'][number];
 
 @Injectable()
-export class GithubService {
+export class GithubService implements IGitClient {
   constructor(
     private readonly configService: ConfigService,
     private readonly googleSecretManagerService: GoogleSecretsManagerService
   ) {}
+  async isRepoExist(token: string, name: string): Promise<boolean> {
+    const repos = await this.getUserRepos(token);
+    if (repos.map(repo => repo.name).includes(name)) {
+      return true;
+    }
+    return false;
+  }
+  async createRepo(args: CreateRepoArgsType): Promise<GitRepo> {
+    const { input, token } = args;
+    const octokit = new Octokit({
+      auth: token
+    });
+    if (await this.isRepoExist(token, input.name)) {
+      throw new ApolloError('Repo already exist');
+    }
+
+    return octokit
+      .request('POST /user/repos', {
+        name: input.name,
+        private: !args.input.public,
+        // eslint-disable-next-line
+        auto_init: true,
+        // eslint-disable-next-line
+        gitignore_template: 'Node'
+      })
+      .then(response => {
+        const { data: repo } = response;
+        //TODO add logger
+        // console.log('Repository %s created', repo.full_name);
+        return {
+          name: repo.name,
+          url: repo.html_url,
+          private: repo.private,
+          fullName: repo.full_name,
+          admin: repo.permissions.admin
+        };
+      });
+  }
+  async getUserRepos(token: string): Promise<GitRepo[]> {
+    const octokit = new Octokit({
+      auth: token
+    });
+
+    const results = await octokit.repos.listForAuthenticatedUser({
+      type: 'all',
+      sort: 'updated',
+      direction: 'desc'
+    });
+
+    return results.data.map(repo => ({
+      name: repo.name,
+      url: repo.html_url,
+      private: repo.private,
+      fullName: repo.full_name,
+      admin: repo.permissions.admin
+    }));
+  }
 
   async listRepoForAuthenticatedUser(token: string): Promise<GithubRepo[]> {
     const octokit = new Octokit({
@@ -251,5 +313,13 @@ export class GithubService {
     const secretManager = this.googleSecretManagerService;
     const [version] = await secretManager.accessSecretVersion({ name });
     return version.payload.data.toString();
+  }
+
+  async getUser(token: string): Promise<GitUser> {
+    const octokit = new Octokit({
+      auth: token
+    });
+    const user = await octokit.users.getAuthenticated();
+    return { username: user.data.login };
   }
 }

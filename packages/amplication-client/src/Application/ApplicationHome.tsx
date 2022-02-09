@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { Switch, Route, match, useLocation } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import { Snackbar } from "@rmwc/snackbar";
@@ -9,7 +9,6 @@ import { formatError } from "../util/error";
 import PageContent from "../Layout/PageContent";
 import { CircleBadge } from "@amplication/design-system";
 import ApplicationForm from "./ApplicationForm";
-import SyncWithGithubPage from "../Settings/SyncWithGithubPage";
 import "./ApplicationHome.scss";
 import SyncWithGithubTile from "./SyncWithGithubTile";
 import EntitiesTile from "./EntitiesTile";
@@ -22,6 +21,7 @@ import { ApiTokenList } from "../Settings/ApiTokenList";
 import RouteWithAnalytics from "../Layout/RouteWithAnalytics";
 import ApplicationDatabaseSettingsForms from "./ApplicationDatabaseSettingsForms";
 import ApplicationAuthSettingForm from "./ApplicationAuthSettingForm";
+import SyncWithGithubPage from "./git/SyncWithGithubPage";
 
 type Props = {
   match: match<{ application: string }>;
@@ -29,6 +29,8 @@ type Props = {
 
 const CLASS_NAME = "application-home";
 const NAVIGATION_KEY = "APP_HOME";
+
+export const AppContext = createContext<models.App | undefined>(undefined);
 
 function ApplicationHome({ match }: Props) {
   const applicationId = match.params.application;
@@ -54,7 +56,7 @@ function ApplicationHome({ match }: Props) {
     <PageContent
       className={CLASS_NAME}
       sideContent={
-        <>
+        <AppContext.Provider value={data?.app}>
           <div>
             <InnerTabLink to={`/${applicationId}/`} icon="home">
               Overview
@@ -85,7 +87,7 @@ function ApplicationHome({ match }: Props) {
               API Tokens
             </InnerTabLink>
           </div>
-        </>
+        </AppContext.Provider>
       }
     >
       <Switch>
