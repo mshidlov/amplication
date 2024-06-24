@@ -3,6 +3,7 @@
   "version": "0.10.2",
   "private": true,
   "scripts": {
+    "test:ci": "npm run prisma:generate && jest --coverage --json --outputFile=/home/runner/work/_actions/mattallty/jest-github-action/v1/dist/jest.results.json",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "check-format": "prettier --check \"**/*.{js,ts,json,gql,md,yaml}\"",

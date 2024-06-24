@@ -1,6 +1,4 @@
-import {
-  Module 
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { GoogleSecretsManagerService } from './googleSecretsManager.service';
 
 @Module({
